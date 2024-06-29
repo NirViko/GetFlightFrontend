@@ -5,11 +5,12 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import FlightDetails from "../FlightDetails";
+import { FlightModal } from "../FlightModal/FlightModal";
+import FormFlightDetails from "../FormFlightDetails";
 
 export const CardFlight = () => {
   const [flights, setFlights] = useState();
-  const [openModal, setOpenModal] = useState(false);
+  const [openModal, setOpenModal] = useState(null);
 
   useEffect(() => {
     getData();
@@ -24,7 +25,13 @@ export const CardFlight = () => {
     <>
       {flights?.map((flight) => {
         return (
-          <Card key={flight?.id} sx={{ width: "40%", margin: 10 }}>
+          <Card
+            key={flight?.id}
+            sx={{
+              width: "40%",
+              margin: 10,
+            }}
+          >
             <CardContent>
               <Typography
                 sx={{ fontSize: 20, fontWeight: "bold" }}
@@ -36,24 +43,28 @@ export const CardFlight = () => {
                 {`${flight?.point} - ${flight?.duration}`}
               </Typography>
               <Typography component="div">
-                {`From: ${flight?.segment[0].origin} - To: ${
-                  flight?.segment[flight?.segment.length - 1].destination
-                }`}
+                {flight?.segment && flight.segment.length > 0
+                  ? `From: ${flight.segment[0]?.origin} - To: ${
+                      flight.segment[flight.segment.length - 1]?.destination
+                    }`
+                  : "Segment data not available"}
               </Typography>
               <Typography variant="body2"></Typography>
             </CardContent>
             <CardActions>
-              <Button onChange={() => setOpenModal(true)} size="small">
+              <Button onClick={() => setOpenModal(flight?.id)} size="small">
                 Learn More
               </Button>
-              <FlightDetails
-                openModal={openModal}
+              <FlightModal
+                flightPath={flight?.segment}
+                openModal={openModal === flight?.id}
                 setOpenModal={setOpenModal}
               />
             </CardActions>
           </Card>
         );
       })}
+      <FormFlightDetails />
     </>
   );
 };
