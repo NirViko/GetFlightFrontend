@@ -7,8 +7,10 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { FlightModal } from "../FlightModal/FlightModal";
 import FormFlightDetails from "../FormFlightDetails";
-
+import { useStyles } from "./styles";
 export const CardFlight = () => {
+  const classes = useStyles();
+
   const [flights, setFlights] = useState();
   const [openModal, setOpenModal] = useState(null);
 
@@ -25,18 +27,9 @@ export const CardFlight = () => {
     <>
       {flights?.map((flight) => {
         return (
-          <Card
-            key={flight?.id}
-            sx={{
-              width: "40%",
-              margin: 10,
-            }}
-          >
+          <Card key={flight?.id} className={classes.card}>
             <CardContent>
-              <Typography
-                sx={{ fontSize: 20, fontWeight: "bold" }}
-                gutterBottom
-              >
+              <Typography className={classes.cardContent} gutterBottom>
                 {flight?.company}
               </Typography>
               <Typography component="div">

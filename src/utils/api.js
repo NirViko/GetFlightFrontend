@@ -2,6 +2,7 @@ const url = "https://localhost:7249";
 
 export const get = async (path) => {
   try {
+    console.log("check", path);
     const response = await fetch(`${url}/${path}`);
     if (response.status === 200) {
       return response.json();
