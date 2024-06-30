@@ -2,44 +2,37 @@ import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import InputBase from "@mui/material/InputBase";
-import MenuIcon from "@mui/icons-material/Menu";
-import SearchIcon from "@mui/icons-material/Search";
 import { useStyles } from "./styles";
-import Search from "../Search";
+import logo from "../../images/logo.png";
+import logo_title from "../../images/logo_title.png";
+import { Button } from "@mui/material";
+import FlightRoundedIcon from "@mui/icons-material/FlightRounded";
+import FlightTakeoffRoundedIcon from "@mui/icons-material/FlightTakeoffRounded";
 export default function SearchAppBar() {
   const classes = useStyles();
 
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
+        <Toolbar className={classes.toolbar}>
+          <img src={logo} width={70} />
+          <img src={logo_title} width={100} />
           <Typography
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
-          >
-            MUI
-          </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIconWrapper}>
-              <SearchIcon />
-            </div>
-
-            <Search className={classes.inputBase} />
-          </div>
+            className={classes.typography}
+          ></Typography>
+          <Button className={classes.btn}>
+            <FlightRoundedIcon className={classes.icon} />
+            <div className={classes.btnFont}>Login</div>
+          </Button>
+          <Button className={classes.btn}>
+            <FlightTakeoffRoundedIcon className={classes.icon} />
+            <div className={classes.btnFont}>Register</div>
+          </Button>
+          {/* <Search /> */}
         </Toolbar>
       </AppBar>
     </Box>

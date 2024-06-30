@@ -1,11 +1,12 @@
-import { Button, Input } from "@mui/material";
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
 import React, { useEffect, useState } from "react";
 import { debounce } from "lodash";
 import { get } from "../../utils/api";
 import { useStyles } from "./styles";
+
 export const Search = () => {
   const classes = useStyles();
-
   const [search, setSearch] = useState([]);
   const [focused, setFocused] = useState(false);
   const onFocus = () => setFocused(true);
@@ -32,20 +33,20 @@ export const Search = () => {
 
   return (
     <>
-      <div className={classes.container}>
-        <Input
+      <div className={classes.search}>
+        <Autocomplete
+          className={classes.inputBase}
+          id="free-solo-demo"
+          options={search.map((option) => option.name)}
+          renderInput={(params) => (
+            <TextField
+              style={{ fontSize: 4 }}
+              {...params}
+              label="Choose company.."
+            />
+          )}
           onChange={autoComplete}
-          onBlur={onBlur}
-          onFocus={onFocus}
-          placeholder="Flight Company"
         />
-        <div style={classes.result}>
-          {focused
-            ? search.map((company) => (
-                <div key={company.id}>{company.name}</div>
-              ))
-            : null}
-        </div>
       </div>
     </>
   );
